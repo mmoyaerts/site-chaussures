@@ -18,7 +18,7 @@ if ($connexion->connect_error) {
 }
 
 // Insertion des données soumises dans la base de données
-$sqlRequest = "INSERT INTO formulaire (nom, email, message) VALUES ('$nom', '$email', '$message')";
+$sqlRequest = "INSERT INTO formulaire_contact (nom, email, message) VALUES ('$nom', '$email', '$message')";
 
 if ($connexion->query($sqlRequest) === TRUE) {
     echo "Les données ont été ajoutées avec succès à la base de données.";
