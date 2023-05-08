@@ -2,7 +2,7 @@
 
 include_once 'config.php';
 //error_reporting(E_ALL);
-if ($_SERVER['REQUEST_METHOD'] == 'get') {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $nom = $_POST['nom'];
     $email = $_POST['email'];
