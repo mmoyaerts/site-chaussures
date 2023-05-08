@@ -1,22 +1,10 @@
 <?php
 //error_reporting(E_ALL);
 if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-if(isset($_POST['submit']))
-{
-
+    if(isset($_POST['submit_button'])) {
     $nom = $_POST['nom'];
     $email = $_POST['email'];
-	$destinataire = 'mathieu.moyaerts.pro@gmail.com';
-	$sujet = "Mai";
-	$message = 'ok';
-    if(mail('mathieu.moyaerts@gmail.com', 'Mon Sujet', 'ok'))
-	{
-        echo "Le message est envoyé";
-    }
-    else{
-        echo "le message n'est pas envoyé";
-    }
+    $message = $_POST['message'];
 
     $erreurs = array();
     if (empty($nom)) {
@@ -32,7 +20,7 @@ if(isset($_POST['submit']))
     if (empty($erreurs)) {
 
         $serveur = 'localhost';
-        $utilisateur =   'mmoyaerts';
+        $utilisateur = 'mmoyaerts';
         $mot_de_passe = 'password';
         $nom_base_de_donnees = 'mmoyaertsDB';
         
@@ -58,5 +46,6 @@ if(isset($_POST['submit']))
     }
 }
 }
+
 
 ?>

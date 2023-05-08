@@ -1,6 +1,5 @@
 <?php
 
-include_once 'config.php';
 //error_reporting(E_ALL);
 $serveur = 'localhost';
 $utilisateur = 'mmoyaerts';
