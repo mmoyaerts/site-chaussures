@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'get') {
 
         $pdo = new PDO("mysql:host=" . $serveur . ";dbname=" . $nom_base_de_donnees, $utilisateur, $mot_de_passe);
 
-        $requeteSql = $pdo->prepare("INSERT INTO messages (nom, email, message) VALUES ('".$nom."', '".$email."', '".$message."')");
+        $requeteSql = $pdo->prepare("INSERT INTO formulaire_contact (nom, email, message) VALUES ('".$nom."', '".$email."', '".$message."')");
        if ($requeteSql->execute()) {
             echo "Le message a été envoyé avec succès !";
         } else {
