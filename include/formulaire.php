@@ -1,31 +1,45 @@
 <?php
 
-$nom = $_POST['nom'];
-$email = $_POST['email'];
-$message = $_POST['message'];
+include_once 'config.php';
+//error_reporting(E_ALL);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $nom = $_POST['nom'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
 
-$serveur = 'localhost';
-$utilisateur = 'mmoyaerts';
-$mot_de_passe = 'password';
-$nom_base_de_donnees = 'mmoyaertsDB';
+    $erreurs = array();
+    if (empty($nom)) {
+        $erreurs[] = 'Le nom est obligatoire.';
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erreurs[] = 'L\'adresse e-mail n\'est pas valide.';
+    }
+    if (empty($message)) {
+        $erreurs[] = 'Le message est obligatoire.';
+    }
 
-$connexion = new mysqli($serveur, $utilisateur, $mot_de_passe, $nom_base_de_donnees);
+    if (empty($erreurs)) {
 
-// Vérification de la connexion
-if ($connexion->connect_error) {
-    die('La connexion a échoué : ' . $connexion->connect_error);
+        $serveur = 'localhost';
+        $utilisateur = 'mmoyaerts';
+        $mot_de_passe = 'password';
+        $nom_base_de_donnees = 'mmoyaertsDB';
+
+        $pdo = new PDO("mysql:host=" . $serveur . ";dbname=" . $nom_base_de_donnees, $utilisateur, $mot_de_passe);
+
+        $requeteSql = $pdo->prepare("INSERT INTO messages (nom, email, message) VALUES (:nom, :email, :message)");
+
+        $requeteSql->bindParam(':nom', $nom);
+        $requeteSql->bindParam(':email', $email);
+        $requeteSql->bindParam(':message', $message);
+       if ($requeteSql->execute()) {
+            echo "Le message a été envoyé avec succès !";
+        } else {
+            echo "Une erreur s'est produite lors de l'enregistrement du message.";
+        }
+    } else {
+        echo implode('<br>', $erreurs);
+    }
 }
-
-// Insertion des données soumises dans la base de données
-$sqlRequest = "INSERT INTO formulaire_contact (nom, email, message) VALUES ('$nom', '$email', '$message')";
-
-if ($connexion->query($sqlRequest) === TRUE) {
-    echo "Les données ont été ajoutées avec succès à la base de données.";
-} else {
-    echo "Erreur : " . $sqlRequest . "<br>" . $connexion->error;
-}
-
-// Fermeture de la connexion à la base de données
-$connexion->close();
 ?>
