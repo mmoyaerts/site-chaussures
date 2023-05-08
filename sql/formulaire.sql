@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS mmoyaertsDB;
+
+USE mmoyaertsDB
+
+CREATE TABLE IF NOT EXISTS formulaire_contact (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
+
