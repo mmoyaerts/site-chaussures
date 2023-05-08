@@ -1,1 +1,2 @@
+AddHandler php-script .php
 DirectoryIndex index.php
